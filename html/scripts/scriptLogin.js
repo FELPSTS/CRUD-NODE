@@ -2,20 +2,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const LoginForm = document.getElementById('LoginForm');
     LoginForm.addEventListener('submit', LoginUser);
 
-    const Inputusername = document.getElementById('username');
+    const Inputemail = document.getElementById('email');
     const Inputpassword = document.getElementById('password');
 
-    function LoginForm(event){ 
+    function LoginUser(event){ 
 
-        const username = Inputusername.value;
+        const email = Inputemail.value;
         const password = Inputpassword.value;
 
-        if (!username || !password) {
-            return res.status(400).send({ error: 'erro esta porra ta null front ' });
+        if (!email || !password) {
+            return res.status(400).send({ error: 'erro esta porra ta null front' });
         }
 
         const userData = {
-            username: username,
+            email: email,
             password: password
         };
 

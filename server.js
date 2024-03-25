@@ -41,25 +41,21 @@ app.post('/register', registerrouter);
 /*login routes*/
 
 
-app.get('/loginpage.html',(req , res)=>{
+app.get('/loginpage.html', (req , res)=>{
     res.sendFile(__dirname + '/html/loginpage.html')
 });
 
-app.get('/scriptlogin.js',(req , res)=>{
-    res.sendFile(__dirname + '')
+app.get('/scripts/scriptLogin.js', (req , res)=>{
+    res.sendFile(__dirname + '/html/scripts/scriptLogin.js')
 })
 
 app.post('/login', loginrouter);
 
 /*node --watch server.js para iniciar*/
-
-/*SEGUINTE 
-
-- FAZER COLUNA DE EMAIL
-
+/*
 - E TALVEZ CRIPTOGRAFIA DA TEU CORRE
-
-- DEPOIS DA COLUNA DE EMAIL TERMINA O LOGIN E VERIFICAÇÃO DO LOGIN SE TA CERTA A SENHA
+/*
+- TERMINA O LOGIN E VERIFICAÇÃO DO LOGIN SE TA CERTA A SENHA
 
 */
 
