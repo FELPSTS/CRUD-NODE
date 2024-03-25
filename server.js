@@ -52,13 +52,6 @@ app.get('/scripts/scriptLogin.js', (req , res)=>{
 app.post('/login', loginrouter);
 
 /*node --watch server.js para iniciar*/
-/*
-- E TALVEZ CRIPTOGRAFIA DA TEU CORRE
-/*
-- TERMINA O LOGIN E VERIFICAÇÃO DO LOGIN SE TA CERTA A SENHA
-
-*/
-
 
 app.listen(3001,()=>{
     console.log("Running in port 3001");
