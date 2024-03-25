@@ -1,17 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
     const LoginForm = document.getElementById('LoginForm');
+    const result = document.getElementById('result');
     LoginForm.addEventListener('submit', LoginUser);
 
     const Inputemail = document.getElementById('email');
     const Inputpassword = document.getElementById('password');
 
-    function LoginUser(event){ 
+    function LoginUser(event) {
+        event.preventDefault();
 
         const email = Inputemail.value;
         const password = Inputpassword.value;
 
         if (!email || !password) {
-            return res.status(400).send({ error: 'erro esta porra ta null front' });
+            console.error('Erro: Campos de e-mail ou senha estão vazios.');
+            return;
         }
 
         const userData = {
@@ -19,21 +22,31 @@ document.addEventListener('DOMContentLoaded', function () {
             password: password
         };
 
-        fetch('http://localhost:3001/Login', {
+        fetch('http://localhost:3001/login', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
             },
             body: JSON.stringify(userData),
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro durante o login.');
+                }
+                return response.json();
+            })
             .then(data => {
-                if (data.success) {
-                    console.log('LOGADO bem-sucedido! ');
+                if (data.error) {
+                    console.error('Erro durante o Login:', data.error);
+                    result.innerHTML = "ERRADO";
+                } else if (Object.keys(data.user).length > 0) {
+                    console.log('Login bem-sucedido! Informações do Usuário:', data.user);
+                    result.innerHTML = "SUCESSO";
                 } else {
-                    console.error('Erro durante o Login: ', data.error);
+                    console.error('Erro durante o Login: Credenciais inválidas.');
+                    result.innerHTML = "ERRADO";
                 }
             })
-            .catch((error) => console.error('Error:', error));
+            .catch((error) => console.error('Erro:', error));
     }
 });

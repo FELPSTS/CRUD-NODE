@@ -5,34 +5,27 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 router.post('/login', async (req, res) => {
-const email = req.body
-const password = req.body
-    
-    if (!username || !email) {
-        return res.status(400).send({ error: 'erro esta porra ta null ' });
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).send({ error: 'Email ou senha ausentes.' });
     } 
 
-    const result = await
+    try {
+        const result = await db.query(
+            "SELECT * FROM tableUser WHERE email = ? AND password = ?",
+            [email, password]
+        );
 
-    db.query(
-            "SELECT * FROM table_User where email = VALUE(?,?)"
-            [email,password],
-            (err, result) => {
-                if (err) {
-                    console.error('Error executing query:', err);
-                    return res.status(500).send({ error: 'Internal server error.' });
-                }
-                
-                if (result.length === 0) {
-                    return res.status(401).send({ error: 'Invalid email or password.' });
-                }
-                res.send({ message: 'Login successful.', user: result[0] });
-            } 
-    )
+        if (result.length === 0) {
+            return res.status(401).send({ error: 'Email ou senha inválidos.' });
+        }
+
+        res.send({ message: 'Login bem-sucedido.', user: result[0] });
+    } catch (err) {
+        console.error('Erro ao executar a consulta:', err);
+        return res.status(500).send({ error: 'Erro interno do servidor.' });
     }
-);
-
-
-
+});
 
 module.exports = router;
