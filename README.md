@@ -1,6 +1,6 @@
 # CRUD-NODE-
 
-This my repository of learnig in NODE for creating the system Crud and utilize Arquiteture POO
+This my repository of learnig in NODE for creating the system Crud 
 
 ### How to de open project
 
